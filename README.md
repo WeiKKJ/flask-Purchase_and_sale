@@ -8,31 +8,31 @@ flask实现的简单进销存后台管理系统
 
 #### 效果图
 
-![Add_merchandise ](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/Add_merchandise%20.png)
+![Add_merchandise ](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/Add_merchandise%20.png)
 
-![Stock](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/Stock.png)
+![Stock](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/Stock.png)
 
-![category](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/category.png)
+![category](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/category.png)
 
-![backup](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/backup.png)
+![backup](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/backup.png)
 
-![Purchase](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/Purchase.png)
+![Purchase](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/Purchase.png)
 
-![login](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/login.png)
+![login](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/login.png)
 
-![Admin_list](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/Admin_list.png)
+![Admin_list](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/Admin_list.png)
 
-![index](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/index.png)
+![index](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/index.png)
 
-![message](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/message.png)
+![message](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/message.png)
 
-![Statistics](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/Statistics.png)
+![Statistics](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/Statistics.png)
 
-![Sale](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/Sale.png)
+![Sale](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/Sale.png)
 
-![flowsheet](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/flowsheet.png)
+![flowsheet](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/flowsheet.png)
 
-![db](https://github.com/WeiKKJ/flask-Purchase_and_sale/tree/master/view-photo/db.png)
+![db](https://github.com/agamgn/flask-Purchase_and_sale/blob/master/view-photo/db.png)
 
 #### 技术栈
 

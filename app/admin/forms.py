@@ -6,6 +6,23 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, FloatField, IntegerField
 from wtforms.validators import DataRequired
 from app.models import goods, supplier, User, power, client, duty, section, warehouse
+# 获取数据库信息
+# 商品
+goodsall = goods.query.all()
+# 供应商
+gysall = supplier.query.all()
+# 业务员
+ywyall = User.query.all()
+# 客户
+clientall = client.query.all()
+# 职务
+dutyall = duty.query.all()
+# 部门
+sectionall = section.query.all()
+# 仓库
+warehouseall = warehouse.query.all()
+# 权限
+powersall = power.query.all()
 
 
 # 登陆表单
@@ -368,8 +385,6 @@ class addgoodsname(FlaskForm):
 
 
 # 添加订单
-goodsall = goods.query.all()
-
 class increasePurchaseOrders(FlaskForm):
     goods_name = SelectField(
         label="货物名称",
@@ -408,6 +423,7 @@ class increasePurchaseOrders(FlaskForm):
             DataRequired("请选择供应商名称！")
         ],
         coerce=int,
+        choices=[(i.supplier_id, i.supplier_name) for i in gysall],
         description="供应商名称",
         render_kw={
             "class": "form-control",
@@ -420,6 +436,7 @@ class increasePurchaseOrders(FlaskForm):
             DataRequired("请选择供业务员名称！")
         ],
         coerce=int,
+        choices=[(i.user_id, i.user_name) for i in ywyall],
         description="业务员名称",
         render_kw={
             "class": "form-control",
@@ -476,6 +493,7 @@ class addsaleorder(FlaskForm):
             DataRequired("货物名称！")
         ],
         coerce=int,
+        choices=[(i.goods_id, i.goods_name) for i in goodsall],
         description="供应商级别",
         render_kw={
             "class": "contrller",
@@ -506,6 +524,7 @@ class addsaleorder(FlaskForm):
             DataRequired("请选择顾客名称！")
         ],
         coerce=int,
+        choices=[(i.client_id, i.client_name) for i in clientall],
         description="顾客名称",
         render_kw={
             "class": "form-control",
@@ -519,6 +538,7 @@ class addsaleorder(FlaskForm):
             DataRequired("请选择供业务员名称！")
         ],
         coerce=int,
+        choices=[(i.user_id, i.user_name) for i in ywyall],
         # choices=[(i.user_id, i.user_name) for i in users],
         description="业务员名称",
         render_kw={
@@ -711,7 +731,7 @@ class addcustomes(FlaskForm):
     credit = SelectField(
         label="客户级别",
         coerce=int,
-        # choices=[(0, "客户级别"), (1, "一星"), (2, "二星"), (3, "三星"), (4, "四星"), (5, "五星")],
+        choices=[(0, "客户级别"), (1, "一星"), (2, "二星"), (3, "三星"), (4, "四星"), (5, "五星")],
         description="客户级别",
         render_kw={
             "class": "contrller",
@@ -758,6 +778,15 @@ class warehouseserch(FlaskForm):
 
 
 # 入库搜索
+name = StringField(
+    description="商品名查询",
+    render_kw={
+        "type": "text",
+        "placeholder": "商品名查询",
+        "autocomplete": "off",
+        "class": "layui-input"
+    }
+)
 class enteringwarehouseserach(FlaskForm):
     name = StringField(
         description="商品名查询",
@@ -797,7 +826,7 @@ class outWarehousingsearch(FlaskForm):
             "autocomplete": "off",
             "class": "layui-input"
         }
-    )
+    )    
     ywy = StringField(
         description="业务员查询",
         render_kw={
@@ -877,7 +906,7 @@ class powerss(FlaskForm):
             DataRequired()
         ],
         coerce=int,
-        # choices=[(i.user_id, i.user_name) for i in users],
+        choices=[(i.user_id, i.user_name) for i in ywyall],
         description="请选择权限",
         render_kw={
             "class": "contrller",
@@ -890,7 +919,7 @@ class powerss(FlaskForm):
             DataRequired()
         ],
         coerce=int,
-        # choices=[(i.power_id, i.power_name) for i in powers],
+        choices=[(i.power_id, i.power_name) for i in powersall],
         description="请选择权限",
         render_kw={
             "class": "contrller",
@@ -919,7 +948,7 @@ class bumens(FlaskForm):
             DataRequired()
         ],
         coerce=int,
-        # choices=[(i.user_id, i.user_name) for i in users],
+        choices=[(i.user_id, i.user_name) for i in ywyall],
         description="用户名",
         render_kw={
             "class": "contrller",
@@ -932,7 +961,7 @@ class bumens(FlaskForm):
             DataRequired()
         ],
         coerce=int,
-        # choices=[(i.duty_id, i.duty_name) for i in dutys],
+        choices=[(i.duty_id, i.duty_name) for i in dutyall],
         description="请选择职务",
         render_kw={
             "class": "contrller",
@@ -944,7 +973,7 @@ class bumens(FlaskForm):
             DataRequired()
         ],
         coerce=int,
-        # choices=[(i.section_id, i.section_name) for i in sections],
+        choices=[(i.section_id, i.section_name) for i in sectionall],
         description="请选择部门",
         render_kw={
             "class": "contrller",

@@ -12,6 +12,7 @@ from pyecharts_javascripthon.api import TRANSLATOR
 from sqlalchemy import extract, func
 from app.apps import db
 from app.models import Purchase, sales,warehouse,goods
+import simplejson
 
 
 def rndColor():
@@ -61,13 +62,14 @@ def bars():
     return bar,javascript_snippet
 
 def bar_chart():
-    d = db.session.query(func.count(extract('Day', Purchase.purchase_addtime)),
-                         extract('Day', Purchase.purchase_addtime)).group_by(
-        extract('Day', Purchase.purchase_addtime)
+    d = db.session.query(func.sum(Purchase.purchase_count),
+                         func.concat(extract('YEAR_MONTH',Purchase.purchase_addtime),extract('DAY',Purchase.purchase_addtime ))
+                                    ).group_by(func.concat(extract('YEAR_MONTH',Purchase.purchase_addtime),extract('DAY',Purchase.purchase_addtime ))
     ).all()
 
     attr = ["{}号".format(j) for _,j in d]
-    v1 = [i for i,_ in d]
+    # v1 = [i for i,_ in d]
+    v1 = simplejson.loads(simplejson.dumps([j for j,_ in d]))
     bar = Bar("日采购量")
     bar.add(
         "",
@@ -75,7 +77,7 @@ def bar_chart():
         v1,
         is_datazoom_show=True,
         datazoom_type="both",
-        datazoom_range=[10, 25],
+        datazoom_range=[10, 250],
     )
     return bar
 
@@ -87,12 +89,18 @@ def lines():
     javascript_snippet = TRANSLATOR.translate(line.options)
     return line,javascript_snippet
 def line_chart():
-    sale = db.session.query(func.count(extract('Day', sales.sales_addtime)),
-                         extract('Day', sales.sales_addtime)).group_by(
-        extract('Day', sales.sales_addtime)
+    # sale = db.session.query(func.count(extract('Day', sales.sales_addtime)),
+    #                      extract('Day', sales.sales_addtime)).group_by(
+    #     extract('Day', sales.sales_addtime)
+    # ).all()    
+    sale = db.session.query(func.sum(sales.sales_count),
+                         func.concat(extract('YEAR_MONTH',sales.sales_addtime),extract('DAY',sales.sales_addtime ))
+                                    ).group_by(func.concat(extract('YEAR_MONTH',sales.sales_addtime),extract('DAY',sales.sales_addtime ))
     ).all()
+    print(str(sale))
     attr = [i for _,i in sale]
-    v1 = [j for j,_ in sale]
+    # v1 = [j for j,_ in sale]
+    v1 = simplejson.loads(simplejson.dumps([j for j,_ in sale]))
     print(attr)
     print(v1)
     line = Line("日销售量")
@@ -103,12 +111,13 @@ def line_chart():
 
 def pies():
     pie = pie_chart()
+    # print(pie)
     javascript_snippet = TRANSLATOR.translate(pie.options)
     return pie,javascript_snippet
 def pie_chart():
     warehouses = db.session.query(func.count(warehouse.warehouse_goods_num),
                                   goods.goods_name).filter(warehouse.warehouse_goods_name == goods.goods_name).group_by(
-        warehouse.warehouse_supplier_name
+        goods.goods_name
     ).all()
     print(warehouses)
     attr = [i for _, i in warehouses]

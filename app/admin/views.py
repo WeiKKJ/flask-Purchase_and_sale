@@ -845,7 +845,7 @@ def inventoryStatistics():
         chart_id=_bar.chart_id,
         host=url_for('static', filename='assets/js'),
         renderer=_bar.renderer,
-        my_width="50%",
+        my_width="90%",
         my_height=500,
         custom_function=javascript_snippet.function_snippet,
         options=javascript_snippet.option_snippet,
@@ -863,7 +863,7 @@ def purchasingStatistics():
         chart_id=_bar.chart_id,
         host=url_for('static',filename='assets/js'),
         renderer=_bar.renderer,
-        my_width="50%",
+        my_width="90%",
         my_height=500,
         custom_function=javascript_snippet.function_snippet,
         options=javascript_snippet.option_snippet,
@@ -881,7 +881,7 @@ def salesStatistics():
         chart_id=line.chart_id,
         host=url_for('static', filename='assets/js'),
         renderer=line.renderer,
-        my_width="50%",
+        my_width="90%",
         my_height=500,
         custom_function=javascript_snippet.function_snippet,
         options=javascript_snippet.option_snippet,
@@ -1048,7 +1048,10 @@ def addduty():
 def comminrole():
     form=powerss()
     if form.validate_on_submit():
-        users=User.query.filter_by(user_name=form.data['account'])
+        users=User.query.filter_by(user_id=form.data['account']).first()
+        users.user_power=power.query.filter_by(power_id=form.data['powerss']).first().power_name
+        db.session.commit()
+        time.sleep(2)
     return render_template("admin/comminrole.html",form=form)
 
 # 修改职务和部门
@@ -1059,8 +1062,13 @@ def bumen():
     form=bumens()
     if form.validate_on_submit():
         users=User.query.filter_by(user_id=form.data['account']).first()
-        users.user_duty = form.data['dutyser']
-        users.user_section = form.data['sectionsr']
+        # users.user_duty = form.data['dutyser']
+        # 根据form.data['dutyser']去查询duty表中的duty_name
+        users.user_duty = duty.query.filter_by(duty_id=form.data['dutyser']).first().duty_name
+        # print(users.user_duty)
+        # users.user_section = form.data['sectionsr']
+        users.user_section = section.query.filter_by(section_id=form.data['sectionsr']).first().section_name
+        # print(users.user_section)
         db.session.commit()
         time.sleep(2)
     return render_template("admin/bumen.html",form=form)
